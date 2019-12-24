@@ -5,6 +5,10 @@
  */
 package modelo;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 /**
  *
  * @author David Santistevan
@@ -90,8 +94,8 @@ public class ArbolBinario<E> {
         return esLleno(root);
     }
     
-    public void posOrden(){
-        posOrden(root);
+    public String posOrden(){
+        return posOrden(root);
     }
     
     private String posOrden(Node n){
@@ -99,14 +103,15 @@ public class ArbolBinario<E> {
             StringBuilder sb=new StringBuilder();
             sb.append(posOrden(n.getLeft()));
             sb.append(posOrden(n.getRight()));
-            sb.append(n.valor.toString());
+            String prefijo = n.esRespuesta() ? "#R " : "#P ";
+            sb.append(prefijo).append(n.valor.toString()).append("\n");
             return sb.toString();
         }
         return "";
     }
-    
-    public void preOrden(){
-        preOrden(root);
+       
+    public String preOrden(){
+        return preOrden(root);
     }
     
     private String preOrden(Node n){
@@ -120,5 +125,71 @@ public class ArbolBinario<E> {
         return "";
     }
     
+    private void resolver(Scanner sc,Node<E> nodo,Node<E> padre){
+        System.out.println(nodo.getValor());
+        String resp=sc.nextLine();
+        while(!(resp.equalsIgnoreCase("Si") || resp.equalsIgnoreCase("No"))){
+            System.out.println("Ingrese por favor un valorvalido");
+            resp=sc.nextLine();
+        }
+        if(resp.equalsIgnoreCase("Si")&&!nodo.esRespuesta())
+            resolver(sc,nodo.getLeft(),nodo);
+        else if(resp.equalsIgnoreCase("No") && !nodo.esRespuesta())
+            resolver(sc,nodo.getRight(),nodo);
+        else if(resp.equalsIgnoreCase("Si")){
+            System.out.println("He adivinado");
+        }else{
+            agregar(sc,padre,nodo);
+        }
+    }
+    
+    public void resolver(Scanner sc){
+        resolver(sc,root,null);
+    }
+
+    private void agregar(Scanner sc,Node<E> padre,Node<E> hijo) {
+        System.out.println("Mi pregunta fue: "+padre.getValor()+
+                "\nCual fue su respuesta?");
+        String animal=sc.nextLine();
+        System.out.println("Como puedo diferenciar entre "+hijo.getValor()+" y "+animal+"?"+
+                "\nIngrese una pregunta:");
+        String pregunta=sc.nextLine();
+        System.out.println("La respuesta para " + animal+ " es? (Si/No)");
+        String resp=sc.nextLine();
+        while(!(resp.equalsIgnoreCase("Si") || resp.equalsIgnoreCase("No"))){
+            System.out.println("Ingrese por favor un valorvalido");
+            resp=sc.nextLine();
+        }
+        asignar(padre,hijo,resp,pregunta,animal);
+    }
+    
+    private void asignar(Node padre,Node hijo,String respuesta,String pregunta,String animal){
+        Node nodo=new Node(pregunta);
+        if(respuesta.equalsIgnoreCase("Si")){
+            nodo.setLeft(new Node(animal));
+            nodo.setRight(hijo);
+        }else{
+            nodo.setRight(new Node(animal));
+            nodo.setLeft(hijo);
+        }
+        if(padre.getLeft().equals(hijo))
+                padre.setLeft(nodo);
+            else
+                padre.setRight(nodo);
+    }
+    
+    public void guardarArbol(BufferedWriter bw) throws IOException{
+        guardarArbol(bw,root);
+    }
+    
+    private void guardarArbol(BufferedWriter bw,Node<E> n) throws IOException{
+        if(n!=null){
+            bw.write(posOrden(n.getLeft()));
+            bw.write(posOrden(n.getRight()));
+            String prefijo = n.esRespuesta() ? "#R " : "#P ";
+            bw.write(prefijo + n.valor.toString());
+            bw.newLine();
+        }
+    }
     
 }

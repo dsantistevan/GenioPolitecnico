@@ -81,5 +81,7 @@ public class Node<E> {
         this.right = right;
     }
     
-    
+    public boolean esRespuesta(){
+        return isEmpty();
+    }
 }

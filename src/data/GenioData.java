@@ -8,12 +8,16 @@ package data;
 import excepciones.ArchivoIncorrectoException;
 import RECURSOS.CONSTANTES;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.ArbolBinario;
 import modelo.Node;
 
@@ -24,18 +28,17 @@ import modelo.Node;
 public class GenioData {
     /**
      * Carga del documento de preguntas y respuestas
-     * @return 
+     * @return ArbolBinario usando el documento .txt
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      * @throws excepciones.ArchivoIncorrectoException
      */
-    public static ArbolBinario cargarOficinasInicial() throws FileNotFoundException, IOException, ArchivoIncorrectoException{
+    public static ArbolBinario cargarArbolInicial() throws FileNotFoundException, IOException, ArchivoIncorrectoException{
         File f = new File(CONSTANTES.PATH_DATA+"datos-1.txt");
         Deque<Node> pila=new LinkedList<>();
-        Node<String> n = null;
+        Node<String> n;
         try(BufferedReader br=new BufferedReader(new FileReader(f))){
             String linea=br.readLine();
-            
             while(linea!=null){
                 if(!(linea.startsWith("#P") || linea.startsWith("#R")))
                     throw new ArchivoIncorrectoException();
@@ -44,7 +47,8 @@ public class GenioData {
                     n.setRight(pila.poll());
                     n.setLeft(pila.poll());
                 }
-                pila.offer(n);
+                pila.push(n);
+                linea=br.readLine();
             }
             
         } catch (FileNotFoundException ex) {
@@ -52,6 +56,15 @@ public class GenioData {
         } catch (IOException | ArchivoIncorrectoException ex) {
             throw ex;
         }
-        return new ArbolBinario(n);
+        return new ArbolBinario(pila.poll());
+    }
+    
+    public static void guardarArbol(ArbolBinario arbol){
+        File f=new File(CONSTANTES.PATH_DATA+"datos-1.txt");
+        try(BufferedWriter bw=new BufferedWriter(new FileWriter(f))){
+            arbol.guardarArbol(bw);
+        } catch (IOException ex) {
+            Logger.getLogger(GenioData.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
