@@ -5,13 +5,23 @@
  */
 package geniopolitecnico;
 
+import data.GenioData;
+import excepciones.ArchivoIncorrectoException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import modelo.ArbolBinario;
 
 /**
  *
@@ -21,18 +31,34 @@ public class GenioPolitecnico extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        ArbolBinario<String> arbol = null;
+        try {
+            arbol=GenioData.cargarArbolInicial();
+        } catch (IOException | ArchivoIncorrectoException ex) {
+            Logger.getLogger(GenioPolitecnico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        final ArbolBinario<String> tree=arbol;
+        
+        TextField tf=new TextField();
+        Label l=new Label(arbol==null ? "" : arbol.getActual());
         Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+        btn.setText("Responder");
+        btn.setOnAction((ActionEvent event) -> {
+            String s=tf.getText();
+            if((s.equalsIgnoreCase("Si") || s.equalsIgnoreCase("No")) && tree!=null){
+                tree.respuesta(s);
+                l.setText(tree.getActual());
             }
         });
         
+        
+        
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        VBox vb=new VBox();
+        vb.setAlignment(Pos.CENTER);
+        vb.getChildren().addAll(l,tf,btn);
+        root.getChildren().add(vb);
         
         Scene scene = new Scene(root, 300, 250);
         

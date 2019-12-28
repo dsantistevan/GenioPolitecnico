@@ -17,13 +17,16 @@ import java.util.Scanner;
 public class ArbolBinario<E> {
     
     private Node root;
+    private Node nodoActual;
+    private Node nodoPrevio;
     
     public ArbolBinario(){
-        this.root=null;
+        this(null);
     }
     
     public ArbolBinario(Node root){
         this.root=root;
+        nodoActual=this.root;
     }
     
     public boolean isEmpty(){
@@ -163,6 +166,28 @@ public class ArbolBinario<E> {
         asignar(padre,hijo,resp,pregunta,animal);
     }
     
+    public void respuesta(String resp){
+        if(resp.equalsIgnoreCase("Si")&&!nodoActual.esRespuesta()){
+            nodoPrevio=nodoActual;
+            nodoActual=nodoActual.getLeft();
+        }
+        else if(resp.equalsIgnoreCase("No") && !nodoActual.esRespuesta()){
+            nodoPrevio=nodoActual;
+            nodoActual=nodoActual.getRight();
+            
+        }else if(resp.equalsIgnoreCase("Si")){
+            System.out.println("He adivinado");
+        }else{
+            //agregar(sc,nodoPrevio,nodoActual);
+        }
+    }
+    
+    public void reiniciar(){
+        nodoActual=root;
+    }
+    
+    
+    
     private void asignar(Node padre,Node hijo,String respuesta,String pregunta,String animal){
         Node nodo=new Node(pregunta);
         if(respuesta.equalsIgnoreCase("Si")){
@@ -190,6 +215,10 @@ public class ArbolBinario<E> {
             bw.write(prefijo + n.valor.toString());
             bw.newLine();
         }
+    }
+    
+    public E getActual(){
+        return (E) nodoActual.getValor();
     }
     
 }
