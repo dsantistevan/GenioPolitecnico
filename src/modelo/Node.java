@@ -14,6 +14,7 @@ public class Node<E> {
     E valor;
     Node<E> left;
     Node<E> right;
+    private int altura;
 
     public Node(E element){
         valor=element;
@@ -28,7 +29,13 @@ public class Node<E> {
         return left==null && right==null;
     }
 
-
+    public boolean hasLeft(){
+        return left!=null;
+    }
+    
+    public boolean hasRight(){
+        return right!=null;
+    }
 
 
     public boolean equalsTree(Object obj) {
@@ -83,5 +90,39 @@ public class Node<E> {
     
     public boolean esRespuesta(){
         return isEmpty();
+    }
+    
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+    
+    public void setValor(E e){
+        valor=e;
+    }
+    
+    public int getBalance(){
+        if(isEmpty())
+            return 0;
+        else if (left==null)
+            return right.altura;
+        else if (right==null)
+            return -left.altura;
+        else
+            return right.altura-left.altura;
+    }
+   
+    public void actualizarAltura(){
+        if(isEmpty())
+            altura = 1;
+        else if (left==null)
+            altura = 1 + right.altura;
+        else if (right==null)
+            altura = 1 + left.altura;
+        else
+            altura = 1+ Math.max(right.altura,left.altura);
     }
 }

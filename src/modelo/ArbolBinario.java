@@ -29,6 +29,10 @@ public class ArbolBinario<E> {
         nodoActual=this.root;
     }
     
+    public Node<E> getRoot(){
+        return root;
+    }
+    
     public boolean isEmpty(){
         return root==null;
     }
