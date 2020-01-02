@@ -5,12 +5,14 @@
  */
 package geniopolitecnico;
 
+import Ventanas.VentanaInicio;
 import data.GenioData;
 import excepciones.ArchivoIncorrectoException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -31,6 +33,19 @@ public class GenioPolitecnico extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        VentanaInicio ventanaInicio = new VentanaInicio();
+        Scene sceneInicio = new Scene(ventanaInicio.getRoot(), 480, 324);
+        
+        
+        ventanaInicio.getBtJugar().setOnAction(e -> cargarJuego(primaryStage));
+        ventanaInicio.getBtSalir().setOnAction(e -> Platform.exit());
+        
+        primaryStage.setTitle("AKINATOR");
+        primaryStage.setScene(sceneInicio);
+        primaryStage.show();
+    }
+    
+    public void cargarJuego(Stage primaryStage){
         ArbolBinario<String> arbol = null;
         try {
             arbol=GenioData.cargarArbolInicial();
@@ -52,8 +67,6 @@ public class GenioPolitecnico extends Application {
             }
         });
         
-        
-        
         StackPane root = new StackPane();
         VBox vb=new VBox();
         vb.setAlignment(Pos.CENTER);
@@ -61,8 +74,7 @@ public class GenioPolitecnico extends Application {
         root.getChildren().add(vb);
         
         Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("AKINATOR");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
