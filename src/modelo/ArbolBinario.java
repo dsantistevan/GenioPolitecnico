@@ -5,6 +5,9 @@
  */
 package modelo;
 
+import data.GenioData;
+import excepciones.AdivinadoException;
+import excepciones.RespuestaIncorrectaException;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -153,6 +156,10 @@ public class ArbolBinario<E> {
     public void resolver(Scanner sc){
         resolver(sc,root,null);
     }
+    
+    public E getPrevio(){
+        return (E) nodoPrevio.getValor();
+    }
 
     private void agregar(Scanner sc,Node<E> padre,Node<E> hijo) {
         System.out.println("Mi pregunta fue: "+padre.getValor()+
@@ -170,7 +177,7 @@ public class ArbolBinario<E> {
         asignar(padre,hijo,resp,pregunta,animal);
     }
     
-    public void respuesta(String resp){
+    public void respuesta(String resp) throws AdivinadoException, RespuestaIncorrectaException{
         if(resp.equalsIgnoreCase("Si")&&!nodoActual.esRespuesta()){
             nodoPrevio=nodoActual;
             nodoActual=nodoActual.getLeft();
@@ -180,14 +187,16 @@ public class ArbolBinario<E> {
             nodoActual=nodoActual.getRight();
             
         }else if(resp.equalsIgnoreCase("Si")){
-            System.out.println("He adivinado");
+            throw new AdivinadoException();
         }else{
+            throw new RespuestaIncorrectaException();
             //agregar(sc,nodoPrevio,nodoActual);
         }
     }
     
     public void reiniciar(){
         nodoActual=root;
+        nodoPrevio=null;
     }
     
     
@@ -205,6 +214,11 @@ public class ArbolBinario<E> {
                 padre.setLeft(nodo);
             else
                 padre.setRight(nodo);
+        GenioData.guardarArbol(this);
+    }
+    
+    public void asignar(String respuesta,String pregunta,String animal){
+        asignar(nodoPrevio,nodoActual,respuesta, pregunta,animal);
     }
     
     public void guardarArbol(BufferedWriter bw) throws IOException{

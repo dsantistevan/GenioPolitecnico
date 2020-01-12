@@ -5,13 +5,11 @@
  */
 package view;
 
-import colores.GamaAzul;
-import colores.GamaColores;
 import modelo.Node;
 import modelo.ArbolBinario;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -26,11 +24,9 @@ public final class BTView<E> extends Pane {
     private final double radioY = 15; // Radio Y del nodo
     private final double radioX = 250; // Radio X del nodo
     private final double vGap = 50; //Separacion vertical
-    private GamaColores gama;
     private double grosor;
     private double altura;
     public BTView(ArbolBinario<E> tree) {
-        gama=new GamaAzul();
         this.tree = tree;
         setStatus("El arbol esta vacio.");
     }
@@ -69,7 +65,7 @@ public final class BTView<E> extends Pane {
         if (nodo.hasLeft()) {
             // Dibuja una linea hacia el nodo izquierdo
             Line line=new Line(x - hGap, y + vGap, x, y);
-            line.setStroke(gama.getBorde());
+            line.setStroke(Color.DARKBLUE);
             getChildren().add(line);
             // Dibuja el arbol izquierdo de forma recursiva
             mostrarArbol(nodo.getLeft(), x - hGap, y + vGap, hGap / 2);
@@ -77,16 +73,16 @@ public final class BTView<E> extends Pane {
         if (nodo.hasRight()) {
             // Dibuja una linea hacia el nodo derecho
             Line line=new Line(x + hGap, y + vGap, x, y);
-            line.setStroke(gama.getBorde());
+            line.setStroke(Color.DARKBLUE);
             getChildren().add(line);
             // Dibuja el arbol derecho de forma recursiva
             mostrarArbol(nodo.getRight(), x + hGap, y + vGap, hGap / 2);
         }
         String s=nodo.getValor().toString();
         // Dibuja el nodo respectivo
-        Ellipse circle = new Ellipse(x, y, s.length()*10/2 ,radioY);
-        circle.setFill(gama.getRelleno());
-        circle.setStroke(gama.getBorde());
+        Ellipse circle = new Ellipse(x, y, s.length()*5 ,radioY);
+        circle.setFill(Color.MEDIUMSLATEBLUE);
+        circle.setStroke(Color.DARKBLUE);
         
         int i= s.length()>2 ? 2+s.length() : 2;
         getChildren().addAll(circle, new Text(x - i*2, y + 4, s));
@@ -95,13 +91,5 @@ public final class BTView<E> extends Pane {
     public ArbolBinario<E> getTree(){
         return tree;
     }
-    
-    public void setGama(GamaColores gc){
-        gama=gc;
-        mostrarArbol();
-    }
-    
-    public GamaColores getGama(){
-        return gama;
-    }
+
 }

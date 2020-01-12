@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package colores;
-
-import javafx.scene.paint.Color;
+package excepciones;
 
 /**
  *
  * @author David Santistevan
  */
-public class GamaAzul extends GamaColores {
+public class RespuestaIncorrectaException extends Exception {
     
-    public GamaAzul(){
-        super(Color.DARKBLUE,Color.MEDIUMSLATEBLUE);
+    public RespuestaIncorrectaException(){
+        super("El Genio no ha adivinado");
     }
 }

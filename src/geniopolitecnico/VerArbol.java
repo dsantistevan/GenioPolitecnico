@@ -32,7 +32,6 @@ public class VerArbol extends Application {
         }
         BTView btv=new BTView(tree);
         btv.mostrarArbol();
-        System.out.println(btv.getTree().isEmpty());
         Scene scene = new Scene(btv, 300, 250);
         
         primaryStage.setTitle("Ver Arbol de Preguntas y Respuestas");

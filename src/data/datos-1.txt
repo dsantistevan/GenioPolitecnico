@@ -1,4 +1,6 @@
 #R un perro
+#R gato
+#P es canino?
 #R una oveja
 #R un elefante
 #P es un animal de granja?

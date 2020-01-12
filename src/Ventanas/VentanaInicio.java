@@ -1,6 +1,10 @@
 
 package Ventanas;
 
+import excepciones.AdivinadoException;
+import excepciones.RespuestaIncorrectaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,12 +15,15 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import view.SeccionJuego;
 
 
-public class VentanaInicio {
-    private HBox root = new HBox();
+public final class VentanaInicio {
+    private BorderPane root;
+    private HBox hb = new HBox();
     private Button btJugar = new Button("   Jugar   ");
     private Button btSalir = new  Button("    Salir    ");
 
@@ -40,20 +47,22 @@ public class VentanaInicio {
         BackgroundImage bI = new BackgroundImage(new Image("imagenes/fondo1.jpg", 480, 324, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         
-        root.setBackground(new Background(bI));
-        root.getChildren().addAll(img,vbox);
-        root.setAlignment(Pos.CENTER);
-        root.setPadding(new Insets(10));
-        root.setSpacing(30);
-        
+        hb.setBackground(new Background(bI));
+        hb.getChildren().addAll(img,vbox);
+        hb.setAlignment(Pos.CENTER);
+        hb.setPadding(new Insets(10));
+        hb.setSpacing(30);
+        root=new BorderPane();
+        root.setCenter(hb);
+        activarJuego();
     }
 
-    public HBox getRoot() {
-        return root;
+    public HBox getHb() {
+        return hb;
     }
 
-    public void setRoot(HBox root) {
-        this.root = root;
+    public void setHb(HBox hb) {
+        this.hb = hb;
     }
 
     public Button getBtJugar() {
@@ -72,5 +81,28 @@ public class VentanaInicio {
         this.btSalir = btSalir;
     }
     
+    public BorderPane getRoot(){
+        return root;
+    }
     
+    private void activarJuego(){
+        btJugar.setOnAction((e) ->{
+            SeccionJuego sj=new SeccionJuego();
+            root.setCenter(sj.getRoot());
+            sj.getBtn().setOnAction((ev) ->{
+                try {
+                    sj.responder();
+                } catch (AdivinadoException ex) {
+                    System.out.println("Adivine");
+                    root.setCenter(hb);
+                } catch (RespuestaIncorrectaException ex) {
+                    VentanaNuevoIngreso vni=(new VentanaNuevoIngreso(sj.getTree()));
+                    root.setCenter(vni.getRoot());
+                    vni.getSalir().setOnAction((eve) ->{
+                        root.setCenter(hb);
+                    });
+                }
+            });
+        });
+    }
 }

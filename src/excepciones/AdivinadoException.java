@@ -3,18 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package colores;
-
-import javafx.scene.paint.Color;
+package excepciones;
 
 /**
  *
  * @author David Santistevan
  */
-public class GamaMorada extends GamaColores{
+public class AdivinadoException extends Exception {
     
-    public GamaMorada(){
-        super(Color.PURPLE,Color.ORCHID);
+    public AdivinadoException(){
+        super("El Genio ha adivinado");
     }
-    
 }
