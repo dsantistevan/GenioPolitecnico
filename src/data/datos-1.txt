@@ -2,10 +2,18 @@
 #R gato
 #P es canino?
 #R una oveja
+#R ballena
+#R Jirafa
+#R Cocodrilo
 #R un elefante
+#P Es de piel dura
+#P Tiene Cuello largo
+#P vive en el mar
 #P es un animal de granja?
 #P es un animal domestico?
+#R Avestruz
 #R un pinguino
+#P es un ave grande
 #R un calamar
 #R una araña
 #P vive en el oceano?

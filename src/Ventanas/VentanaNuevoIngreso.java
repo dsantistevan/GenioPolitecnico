@@ -8,6 +8,7 @@ package Ventanas;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import modelo.ArbolBinario;
 import view.SeccionFormulario;
@@ -30,6 +31,13 @@ public class VentanaNuevoIngreso {
         
         btn = new Button();
         btn.setText("Responder");
+        btn.setTranslateX(105);
+        btn.setTranslateY(-120);
+        
+        ImageView img = new ImageView("imagenes/duda.png");
+        img.setFitWidth(200);
+        img.setFitHeight(307);
+        sf.getImg().setImage(img.getImage());
         
         root=new VBox();
         root.setAlignment(Pos.CENTER);
@@ -43,7 +51,7 @@ public class VentanaNuevoIngreso {
             String animal=sf.getValor();
             if(!animal.equals("")){
                 sf.clear();
-                sf.setNombre("Como puedo diferenciar entre "+tree.getActual()+" y "+animal+"?"+
+                sf.setNombre("Como puedo diferenciar entre \n"+tree.getActual()+" y "+animal+"?"+
                     "\nIngrese una pregunta:");
                 activarPregunta(animal);
             }

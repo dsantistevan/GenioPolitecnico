@@ -88,13 +88,16 @@ public final class VentanaInicio {
     private void activarJuego(){
         btJugar.setOnAction((e) ->{
             SeccionJuego sj=new SeccionJuego();
+            VentanaFinal vf = new VentanaFinal();
             root.setCenter(sj.getRoot());
             sj.getBtn().setOnAction((ev) ->{
                 try {
                     sj.responder();
                 } catch (AdivinadoException ex) {
                     System.out.println("Adivine");
-                    root.setCenter(hb);
+                    root.setCenter(vf.getRoot());
+                    vf.getBtNuevoJuego().setOnAction(event->root.setCenter(hb));
+                    //root.setCenter(hb);
                 } catch (RespuestaIncorrectaException ex) {
                     VentanaNuevoIngreso vni=(new VentanaNuevoIngreso(sj.getTree()));
                     root.setCenter(vni.getRoot());

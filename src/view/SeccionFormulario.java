@@ -5,9 +5,19 @@
  */
 package view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -16,31 +26,45 @@ import javafx.scene.paint.Color;
  * @author David Santistevan
  */
 public class SeccionFormulario {
-    private VBox root;
+    private VBox vbox;
+    private HBox root;
     private Label error;
     private TextField campo;
     private Label nombre;
+    private ImageView img = new ImageView("imagenes/respuestaSi.png");; 
     
     public SeccionFormulario(String nom){
-        root=new VBox();
+        vbox=new VBox();
+        root = new HBox();
+        
+        img.setFitWidth(200);
+        img.setFitHeight(307);
+        
         nombre=new Label(capitalizeString(nom)+":");
         campo=new TextField();
         error=new Label("");
         error.setTextFill(Color.RED);
-        root.setSpacing(7);
-        root.getChildren().add(nombre);
-        root.getChildren().add(campo);
-        root.getChildren().add(error);
-        root.setAlignment(Pos.CENTER_LEFT);
         
+        vbox.setSpacing(7);
+        vbox.setPadding(new Insets(10));
+        vbox.getChildren().addAll(nombre, campo, error);
+        vbox.setAlignment(Pos.CENTER);
+        
+        //BackgroundImage bI = new BackgroundImage(new Image("imagenes/fondo.jpg", 480, 300, false, true),
+        //BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        
+        //root.setBackground(new Background(bI));
+        root.setAlignment(Pos.CENTER);
+        root.setSpacing(20);
+        root.getChildren().addAll(img, vbox);
     }
     
 
-    public VBox getRoot() {
+    public HBox getRoot() {
         return root;
     }
 
-    public void setRoot(VBox root) {
+    public void setRoot(HBox root) {
         this.root = root;
     }
 
@@ -72,6 +96,17 @@ public class SeccionFormulario {
         nombre.setText(capitalizeString(s));
     }
 
+    public ImageView getImg() {
+        return img;
+    }
+
+    public VBox getVbox() {
+        return vbox;
+    }
+
+    public void setVbox(VBox vbox) {
+        this.vbox = vbox;
+    }
 
     public void activarError(String err){
         error.setText(err);

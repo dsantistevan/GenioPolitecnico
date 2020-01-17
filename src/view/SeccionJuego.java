@@ -15,6 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import modelo.ArbolBinario;
 
@@ -24,7 +27,7 @@ import modelo.ArbolBinario;
  */
 public class SeccionJuego {
 
-    private final VBox root;
+    private final BorderPane root;
     private final ArbolBinario<String> tree;
     private final SeccionFormulario sf;
     private final Button btn;
@@ -44,18 +47,21 @@ public class SeccionJuego {
         btn = new Button();
         btn.setText("Responder");
         
-        root=new VBox();
-        root.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(sf.getRoot(),btn);
+        sf.getVbox().getChildren().add(btn);        
+        root=new BorderPane();
+        root.setCenter(sf.getRoot());
     }
 
-    public VBox getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
     
     public void responder() throws AdivinadoException, RespuestaIncorrectaException{
         String s=sf.getValor();
+        ImageView img = new ImageView("imagenes/respuestaSi.png");
         if((s.equalsIgnoreCase("Si") || s.equalsIgnoreCase("No")) && tree!=null){
+            sf.getImg().setImage((s.equalsIgnoreCase("Si"))?new Image("imagenes/respuestaSi.png"):
+                    new Image("imagenes/respuestaNo.png"));
             try {
                 tree.respuesta(s);
             } catch (AdivinadoException | RespuestaIncorrectaException ex) {
