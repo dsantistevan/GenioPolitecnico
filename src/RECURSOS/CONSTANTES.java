@@ -10,5 +10,5 @@ package RECURSOS;
  * @author David Santistevan
  */
 public class CONSTANTES {
-    public static String PATH_DATA="src/data/";
+    public static final String PATH_DATA="src/data/";
 }

@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author David Santistevan
@@ -125,4 +127,13 @@ public class Node<E> {
         else
             altura = 1+ Math.max(right.altura,left.altura);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + Objects.hashCode(this.valor);
+        return hash;
+    }
+    
+    
 }
