@@ -42,10 +42,10 @@ public final class BTView<E> extends Pane {
         this.getChildren().clear(); // Elimina los elementos
         if (!tree.isEmpty()) {
             // Muestra el arbol de forma recursiva
-            if(getWidth()/Math.pow(2,tree.getRoot().getAltura())>radioX*5)
+            if(getWidth()/Math.pow(2,tree.getRoot().getAltura())>radioX*35)
                 grosor=getWidth();
             else
-                grosor=radioX*Math.pow(2,tree.getRoot().getAltura())*5;
+                grosor=radioX*Math.pow(2,tree.getRoot().getAltura())*35;
             mostrarArbol(tree.getRoot(), grosor/2, 0+vGap, grosor/4);
             altura=tree.getRoot().getAltura()*(vGap+2*radioY);
         }

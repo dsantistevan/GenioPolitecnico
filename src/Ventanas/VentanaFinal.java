@@ -4,9 +4,13 @@ package Ventanas;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 
 
 public class VentanaFinal {
@@ -22,9 +26,10 @@ public class VentanaFinal {
         ImageView img = new ImageView("imagenes/adivino.png");
         img.setFitWidth(300);
         img.setFitHeight(298);
-        
+        Label l=new Label("Adivine");
+        l.setFont(Font.font("Verdana",FontWeight.BOLD, 25));
         root = new VBox();
-        root.getChildren().addAll(img, btNuevoJuego);
+        root.getChildren().addAll(img,l, btNuevoJuego);
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(0, 0, 20, 0));
         

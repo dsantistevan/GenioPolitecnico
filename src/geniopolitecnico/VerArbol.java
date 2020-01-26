@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import modelo.ArbolBinario;
 import view.BTView;
@@ -32,7 +33,8 @@ public class VerArbol extends Application {
         }
         BTView btv=new BTView(tree);
         btv.mostrarArbol();
-        Scene scene = new Scene(btv, 300, 250);
+        ScrollPane sp=new ScrollPane(btv);
+        Scene scene = new Scene(sp, 300, 250);
         
         primaryStage.setTitle("Ver Arbol de Preguntas y Respuestas");
         primaryStage.setScene(scene);

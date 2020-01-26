@@ -75,10 +75,7 @@ public class ArbolBinario<E> {
     public int contarHojas(){
         return contarHojas(root);
     }
-    
-    private Node searchNode(E data){
-        return searchNode(data,root);
-    }
+
     
     private Node searchNode(E data,Node n){
         if(data==null||n==null||n.isEmpty())
@@ -135,47 +132,12 @@ public class ArbolBinario<E> {
         return "";
     }
     
-    private void resolver(Scanner sc,Node<E> nodo,Node<E> padre){
-        System.out.println(nodo.getValor());
-        String resp=sc.nextLine();
-        while(!(resp.equalsIgnoreCase("Si") || resp.equalsIgnoreCase("No"))){
-            System.out.println("Ingrese por favor un valorvalido");
-            resp=sc.nextLine();
-        }
-        if(resp.equalsIgnoreCase("Si")&&!nodo.esRespuesta())
-            resolver(sc,nodo.getLeft(),nodo);
-        else if(resp.equalsIgnoreCase("No") && !nodo.esRespuesta())
-            resolver(sc,nodo.getRight(),nodo);
-        else if(resp.equalsIgnoreCase("Si")){
-            System.out.println("He adivinado");
-        }else{
-            agregar(sc,padre,nodo);
-        }
-    }
-    
-    public void resolver(Scanner sc){
-        resolver(sc,root,null);
-    }
+ 
     
     public E getPrevio(){
         return (E) nodoPrevio.getValor();
     }
-
-    private void agregar(Scanner sc,Node<E> padre,Node<E> hijo) {
-        System.out.println("Mi pregunta fue: "+padre.getValor()+
-                "\nCual fue su respuesta?");
-        String animal=sc.nextLine();
-        System.out.println("Como puedo diferenciar entre "+hijo.getValor()+" y "+animal+"?"+
-                "\nIngrese una pregunta:");
-        String pregunta=sc.nextLine();
-        System.out.println("La respuesta para " + animal+ " es? (Si/No)");
-        String resp=sc.nextLine();
-        while(!(resp.equalsIgnoreCase("Si") || resp.equalsIgnoreCase("No"))){
-            System.out.println("Ingrese por favor un valorvalido");
-            resp=sc.nextLine();
-        }
-        asignar(padre,hijo,resp,pregunta,animal);
-    }
+   
     
     public void respuesta(String resp) throws AdivinadoException, RespuestaIncorrectaException{
         if(resp.equalsIgnoreCase("Si")&&!nodoActual.esRespuesta()){

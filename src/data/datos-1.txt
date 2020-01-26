@@ -16,6 +16,10 @@
 #P es un ave grande
 #R un calamar
 #R una araña
+#R escarabajo
+#R lagartija
+#P es un insecto?
+#P es un aracnido?
 #P vive en el oceano?
 #P es un ave?
 #P es un mamifero?

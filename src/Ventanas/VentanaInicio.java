@@ -44,7 +44,7 @@ public final class VentanaInicio {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(15);
         
-        BackgroundImage bI = new BackgroundImage(new Image("imagenes/fondo1.jpg", 480, 324, false, true),
+        BackgroundImage bI = new BackgroundImage(new Image("imagenes/fondo1.jpg", 480, 370, false, true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         
         hb.setBackground(new Background(bI));

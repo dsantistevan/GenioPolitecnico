@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import modelo.ArbolBinario;
@@ -50,6 +51,10 @@ public class SeccionJuego {
         sf.getVbox().getChildren().add(btn);        
         root=new BorderPane();
         root.setCenter(sf.getRoot());
+        root.setOnKeyPressed((e) ->{
+            if(e.getCode().equals(KeyCode.ENTER))
+                btn.fire();
+        });
     }
 
     public BorderPane getRoot() {

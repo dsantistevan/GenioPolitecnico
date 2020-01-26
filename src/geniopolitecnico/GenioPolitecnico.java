@@ -21,13 +21,14 @@ public class GenioPolitecnico extends Application {
     @Override
     public void start(Stage primaryStage) {
         VentanaInicio ventanaInicio = new VentanaInicio();
-        Scene sceneInicio = new Scene(ventanaInicio.getRoot(), 480, 324);
+        Scene sceneInicio = new Scene(ventanaInicio.getRoot(), 480, 370);
         
         
         ventanaInicio.getBtSalir().setOnAction(e -> Platform.exit());
         
         primaryStage.setTitle("AKINATOR");
         primaryStage.setScene(sceneInicio);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     
